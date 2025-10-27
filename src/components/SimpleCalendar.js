@@ -97,7 +97,7 @@ export default function SimpleCalendar(props) {
                 <div>Sat</div>
             </div>
 
-            <div className="grid grid-cols-7 gap-2 flex-1 mt-2 [grid-auto-rows:1fr]">
+            <div className="grid grid-cols-7 gap-2 mt-2 [grid-auto-rows:1fr]">
                 {cells.map((day, idx) => {
                     const isToday = day === today.getDate();
                     const foundData = findCalendarDataForDay(day, monthIndex + 1, year);
@@ -117,19 +117,14 @@ export default function SimpleCalendar(props) {
                                 ${controlBg}
                                 border rounded-xl text-lg transition-all duration-200 ${day ? '' : 'bg-transparent'} ${isToday ? 'border-2 border-blue-600 font-bold text-blue-600' : 'border-gray-200 text-gray-700'}`}
                         >
-                            {/* <div className="flex items-center space-x-3 p-2">
-                                <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-50">
-                                    <span className="font-medium text-gray-800">{day || ''}</span>
-                                </div>
-                            </div> */}
                             {
                                 foundData !== null && foundData !== undefined
                                     ?
                                     <div className="flex items-center space-x-3 p-2">
-                                        <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-50">
+                                        <div className="md:w-10 md:h-10 lg:w-10 lg:h-10 xl:w-10 xl:h-10 2xl:w-10 2xl:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-50">
                                             <span className="text-sm font-medium text-gray-800">{day || ''}</span>
                                         </div>
-                                        <div className="flex-1">
+                                        <div className="flex-1 hidden md:block lg:block xl:block 2xl:block">
                                             <ul>
                                                 {foundData.breakfast ?
                                                     <li className="text-xs p-1">
@@ -152,14 +147,6 @@ export default function SimpleCalendar(props) {
                                                     :
                                                     ''
                                                 }
-                                                {/* {controlBg === 'bg-green-300' ?
-                                                    <Link
-                                                        className="flex items-center justify-between"
-                                                        to={`/donate/${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`}
-                                                    >
-                                                        <span className="border rounded-md bg-white font-bold text-blue-700 px-2 mt-2 text-center hover:bg-gray-100" style={{ fontSize: '10px' }}>လှူဒါန်းမည်</span>
-                                                    </Link>
-                                                    : ''} */}
                                             </ul>
                                         </div>
                                     </div>
