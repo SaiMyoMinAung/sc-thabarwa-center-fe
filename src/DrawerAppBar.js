@@ -27,10 +27,6 @@ const navItems = [
         url: '/'
     },
     {
-        name: 'donate',
-        url: '/donate'
-    },
-    {
         name: 'about',
         url: '/about'
     },
