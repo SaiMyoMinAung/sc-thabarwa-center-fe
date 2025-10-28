@@ -49,7 +49,7 @@ export default function Detail(props) {
     // not donated -> show donate button
     return (
       <div className="border rounded-lg bg-white p-4 shadow-sm flex flex-col items-center">
-        <div className="font-bold text-center text-3xl text-red-400 mb-10">{t(label)} {t('detail_no_donor')}</div>
+        <div className="font-bold text-center text-3xl text-red-400 mb-10">{t(label)} {t('detail_no_donar')}</div>
         <Link
           to={`/donate/${label}/${params.date}`}
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 text-sm"

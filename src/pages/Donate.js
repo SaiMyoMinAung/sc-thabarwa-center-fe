@@ -138,10 +138,10 @@ const Donate = () => {
       </div>
       <div className="mx-auto max-w-2xl text-center">
         <h3 className="text-balance text-3xl font-semibold tracking-tight text-gray-900 sm:text-2xl">
-          {convertDateLang(date, i18n.language)} {t('detail_heading_for')}
+          <span className="text-blue-700">{convertDateLang(date, i18n.language)} </span> {t('detail_heading_for')}
         </h3>
         <h4 className="pt-4 text-balance text-3xl font-semibold tracking-tight text-gray-900 sm:text-2xl">
-          {t(eventFor)} {t('donate_heading')}
+          <span className="text-blue-700">{t(eventFor)}</span> {t('donate_heading')}
         </h4>
       </div>
       <form className="mx-auto mt-8 max-w-xl sm:mt-8">

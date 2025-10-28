@@ -33,7 +33,7 @@ const resources = {
             "donate_submit": "Submit Now",
             // detail page
             'detail_heading_for': "",
-            'detail_donor': "Donor",
+            'detail_donar': "Donor",
             'detail_no_donar': "no donar yet.",
             'detail_donation_button': "Doate Now",
             // detail page
@@ -77,7 +77,7 @@ const resources = {
             // detail page
             'detail_donar': "အလှူရှင်",
             'detail_heading_for': " နေ့ အတွက်",
-            'detail_no_donor': "အလှူရှင် မရှိသေးပါ။",
+            'detail_no_donar': "အလှူရှင် မရှိသေးပါ။",
             'detail_donation_button': "လှူဒါန်းရန် နှိပ်ပါ။",
             // message
             "donate_success_message": "ရိပ်သာမှ မကြာမီပြန်လည်အကြောင်းပြန်ပါမည်။",
