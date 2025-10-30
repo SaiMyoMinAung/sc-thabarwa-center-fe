@@ -43,6 +43,14 @@ const resources = {
             'detail_date': "Date",
             // donate success message
             "donate_success_message": "The meditation center will get back to you soon.",
+            // day
+            'monday': 'Mon',
+            'tuesday': 'Tues',
+            'wednesday': 'Wed',
+            'thursday': 'Thu',
+            'friday': 'Fri',
+            'saturday': 'Sat',
+            'sunday': 'Sun',
         }
     },
     my: {
@@ -81,6 +89,14 @@ const resources = {
             'detail_donation_button': "လှူဒါန်းရန် နှိပ်ပါ။",
             // message
             "donate_success_message": "ရိပ်သာမှ မကြာမီပြန်လည်အကြောင်းပြန်ပါမည်။",
+            // day
+            'monday': 'တနင်္လာ',
+            'tuesday': 'အင်္ဂါ',
+            'wednesday': 'ဗုဒ္ဓဟူး',
+            'thursday': 'ကြာသပတေး',
+            'friday': 'သောကြာ',
+            'saturday': 'စနေ',
+            'sunday': 'တနင်္ဂနွေ',
         }
     }
 };

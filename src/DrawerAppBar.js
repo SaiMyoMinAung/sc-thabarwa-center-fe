@@ -86,6 +86,7 @@ function DrawerAppBar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
+
                     <Typography
                         variant="h6"
                         component="div"
@@ -129,6 +130,18 @@ function DrawerAppBar(props) {
                     }}
                 >
                     {drawer}
+                    {/* also show language selector inside the Drawer for mobile */}
+                    <Box sx={{ px: 2, py: 1 }}>
+                        <Select
+                            value={i18n.language || 'en'}
+                            onChange={handleLangChange}
+                            fullWidth
+                            size="small"
+                        >
+                            <MenuItem value="en">EN</MenuItem>
+                            <MenuItem value="my">MY</MenuItem>
+                        </Select>
+                    </Box>
                 </Drawer>
             </nav>
             <Box component="main" sx={{ flexGrow: 1, width: '100%', display: 'flex', flexDirection: 'column' }}>

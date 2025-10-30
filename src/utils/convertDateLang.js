@@ -29,6 +29,22 @@ function toMyanmarDigits(str) {
     return String(str).replace(/\d/g, (d) => MY_DIGITS[Number(d)]);
 }
 
+export const convertYear = (year, changeTo = 'en') => {
+    if (changeTo === 'my') {
+        return toMyanmarDigits(year);
+    }
+
+    return String(year);
+}
+
+export const convertMonth = (monthIdx, changeTo = 'en') => {
+    if (changeTo === 'my') {
+        return MY_MONTHS[monthIdx];
+    }
+
+    return EN_MONTHS[monthIdx];
+}
+
 /**
  * Convert a date to the requested language.
  * @param {Date|string|number} input - Date object, ISO date string, or timestamp.
