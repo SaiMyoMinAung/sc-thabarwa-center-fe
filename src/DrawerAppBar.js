@@ -14,10 +14,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useTranslation } from 'react-i18next';
+import { GlobalContext } from './context/GlobalState';
 
 const drawerWidth = 240;
 
@@ -37,13 +38,20 @@ const navItems = [
 ];
 
 function DrawerAppBar(props) {
+    const navigate = useNavigate();
     const { t, i18n } = useTranslation();
+    const { access_token, delToken } = React.useContext(GlobalContext)
 
     const handleLangChange = (e) => {
         const lng = e.target.value;
         i18n.changeLanguage(lng);
         localStorage.setItem('i18nextLng', lng);
     };
+
+    const handleLogOut = () => {
+        delToken()
+        navigate('/')
+    }
 
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -102,6 +110,26 @@ function DrawerAppBar(props) {
                                 </Button>
                             </Link>
                         ))}
+
+                        {
+                            access_token ?
+                                <>
+                                    <Link key='Manager View' to='/manager-view'>
+                                        <Button key='Manager View' sx={{ color: '#fff' }}>
+                                            Manager View
+                                        </Button>
+                                    </Link>
+                                    <Button onClick={() => handleLogOut()} key='Log Out' sx={{ color: '#fff' }}>
+                                        Log Out
+                                    </Button>
+                                </>
+                                :
+                                <Link key='Login View' to='/manager-login'>
+                                    <Button key='Login View' sx={{ color: '#fff' }}>
+                                        Login
+                                    </Button>
+                                </Link>
+                        }
                         {/* language selector */}
                         <Select
                             value={i18n.language || 'en'}

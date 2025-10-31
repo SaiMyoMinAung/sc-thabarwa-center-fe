@@ -26,6 +26,14 @@ export async function fetchEventById(id, { signal } = {}) {
 }
 
 /**
+ * Confirm event by id
+ */
+export async function confirmEventById(id, payload) {
+    if (!id) throw new Error('id is required');
+    return baseClient.put(`/confirm-donation-event/${encodeURIComponent(id)}`, payload);
+}
+
+/**
  * Example: create an event
  */
 export async function createEvent(payload) {
