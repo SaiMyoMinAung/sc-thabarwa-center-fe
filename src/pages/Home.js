@@ -2,6 +2,7 @@ import SimpleCalendar from '../components/SimpleCalendar';
 import { fetchCalenderData } from '../api/eventClient.js';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Home = () => {
   const today = new Date();
@@ -10,13 +11,18 @@ const Home = () => {
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
 
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
 
     const controller = new AbortController();
 
+    setLoading(true)
+
     fetchCalenderData({ params: { 'date': `${currentYear}-${currentMonth + 1}` }, signal: controller.signal })
       .then(data => {
         setCalendarData(data)
+        setLoading(false)
       })
       .catch(err => {
         if (err.name !== 'AbortError') console.error(err);
@@ -54,13 +60,13 @@ const Home = () => {
     <div className='bg-gray-200'>
       <header className="text-center my-6">
         <h1 className="text-3xl md:text-4xl font-bold text-teal-700">အလှူတော် မှတ်တမ်း ပြက္ခဒိန်</h1>
-        <p className="text-gray-600 mt-2">ရိပ်သာအတွက် အလှူရှင်များ၏ အလှူတော်များကို မှတ်သားရန်</p>
+        <p className="text-gray-600 mt-4">ရိပ်သာအတွက် အလှူရှင်များ၏ အလှူတော်များကို မှတ်သားရန်</p>
       </header>
 
       <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
         <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-lg">
-          <SimpleCalendar prevMonthClicked={() => changeToPrevMonth()} nextMonthClicked={() => changeToNextMonth()} year={currentYear} month={currentMonth} calendarData={calendarData} />
+          <SimpleCalendar loading={loading} prevMonthClicked={() => changeToPrevMonth()} nextMonthClicked={() => changeToNextMonth()} year={currentYear} month={currentMonth} calendarData={calendarData} />
         </div>
 
         <div className="space-y-8">

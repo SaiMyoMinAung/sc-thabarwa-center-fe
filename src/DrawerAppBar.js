@@ -74,6 +74,30 @@ function DrawerAppBar(props) {
                         </ListItemButton>
                     </ListItem>
                 ))}
+                {
+                    access_token ?
+                        <>
+                            <ListItem key='Manager View' disablePadding >
+                                <ListItemButton component={Link} to='/manager-view' sx={{ textAlign: 'center' }}>
+                                    <ListItemText primary='Manager View' />
+                                </ListItemButton>
+                            </ListItem>
+
+                            <ListItem key='Log Out' disablePadding >
+                                <ListItemButton onClick={() => handleLogOut()} component={Link} to='/manager-view' sx={{ textAlign: 'center' }}>
+                                    <ListItemText primary='Log Out' />
+                                </ListItemButton>
+                            </ListItem>
+
+
+                        </>
+                        :
+                        <ListItem key='Login View' disablePadding >
+                            <ListItemButton onClick={() => handleLogOut()} component={Link} to='/manager-login' sx={{ textAlign: 'center' }}>
+                                <ListItemText primary='Login' />
+                            </ListItemButton>
+                        </ListItem>
+                }
             </List>
         </Box >
     );

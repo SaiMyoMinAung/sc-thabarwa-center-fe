@@ -97,14 +97,14 @@ export default function ManagerView() {
       <div className="overflow-x-auto bg-white rounded shadow">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-100">
-            <tr className='font-bold'>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">{t('donate_date')}</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">{t('donate_event_for')}</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">{t('donate_title')}</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">{t('donate_description')}</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">{t('donate_address')}</th>
-              <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">{t('donate_phone')}</th>
-              <th className="px-4 py-2 text-right text-sm font-medium text-gray-700">Actions</th>
+            <tr className='font-bold '>
+              <th className="min-w-40 text-center px-4 py-2 text-sm font-medium text-gray-700">{t('donate_date')}</th>
+              <th className="min-w-40 text-center px-4 py-2 text-sm font-medium text-gray-700">{t('donate_event_for')}</th>
+              <th className="min-w-40 text-center px-4 py-2 text-sm font-medium text-gray-700">{t('donate_title')}</th>
+              <th className="min-w-40 text-center px-4 py-2 text-sm font-medium text-gray-700">{t('donate_description')}</th>
+              <th className="min-w-40 text-center px-4 py-2 text-sm font-medium text-gray-700">{t('donate_address')}</th>
+              <th className="min-w-40 text-center px-4 py-2 text-sm font-medium text-gray-700">{t('donate_phone')}</th>
+              <th className="min-w-40 text-center px-4 py-2 text-sm font-medium text-gray-700">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">

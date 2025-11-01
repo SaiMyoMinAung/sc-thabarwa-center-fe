@@ -74,7 +74,7 @@ const resources = {
             "both_breakfast_lunch": "တနေ့တာ",
             // donate page
             "donate_heading": " လှူဒါန်းရန်",
-            "donate_event_for": "လှူဒါန်းမည့် ဆွမ်း ရွေးပါ",
+            "donate_event_for": "လှူဒါန်းမည့် ဆွမ်း",
             "donate_date": "ရက်စွဲ",
             "donate_selected_date": " ကို ရွေးထားပါသည်။",
             "donate_phone": "ဖုန်းနံပါတ် ဖြည့်ပါ",

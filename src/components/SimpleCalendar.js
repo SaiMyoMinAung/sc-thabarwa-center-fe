@@ -3,8 +3,9 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { convertYear, convertMonth } from "../utils/convertDateLang";
+import CircularProgress from "@mui/material/CircularProgress";
 
-export default function SimpleCalendar({ year, month, calendarData, nextMonthClicked, prevMonthClicked }) {
+export default function SimpleCalendar({ loading, year, month, calendarData, nextMonthClicked, prevMonthClicked }) {
     const { t, i18n } = useTranslation();
 
     const today = new Date();
@@ -59,7 +60,7 @@ export default function SimpleCalendar({ year, month, calendarData, nextMonthCli
     }
 
     return (
-        <div className="w-full h-screen flex flex-col p-6">
+        <div className="w-full flex flex-col p-6">
 
             <div className="flex justify-between items-center mb-4">
                 <button onClick={() => prevMonthClicked()} className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">&lt;</button>
@@ -76,112 +77,119 @@ export default function SimpleCalendar({ year, month, calendarData, nextMonthCli
                 <div className="day-name text-xs md:text-lg lg:text-lg xl:text-lg 2xl:text-lg rounded-t-lg">{t('friday')}</div>
                 <div className="day-name text-xs md:text-lg lg:text-lg xl:text-lg 2xl:text-lg rounded-t-lg">{t('sunday')}</div>
             </div>
-
-            <div className="grid grid-cols-7 gap-2 mt-2 [grid-auto-rows:1fr]">
-                {cells.map((day, idx) => {
-                    const isToday = day === today.getDate();
-                    const foundData = findCalendarDataForDay(day, month + 1, year);
-                    const controlBg = determineCellColor(day, foundData);
-                    // console.log('foundData for day', foundData);
-                    // determineCellColor(day);
-                    return (
-                        <Link
-                            className={`
+            {
+                loading ?
+                    <div className="flex flex-col items-center m-40">
+                        <CircularProgress size={60} />
+                    </div>
+                    :
+                    <div className="grid grid-cols-7 gap-2 mt-2 [grid-auto-rows:1fr]">
+                        {cells.map((day, idx) => {
+                            const isToday = day === today.getDate();
+                            const foundData = findCalendarDataForDay(day, month + 1, year);
+                            const controlBg = determineCellColor(day, foundData);
+                            // console.log('foundData for day', foundData);
+                            // determineCellColor(day);
+                            return (
+                                <Link
+                                    className={`
                                 ${controlBg}
                                 flex calendar-grid border rounded-xl transition-all duration-200 ${day ? '' : 'bg-transparent'} ${isToday ? 'border-2 border-blue-600 font-bold text-blue-600' : 'border-gray-200 text-gray-700'}`}
-                            to={
-                                day ?
-                                    `/detail/${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-                                    :
-                                    '/'
-                            }
-                            key={idx}
-                        >
-                            {
-                                foundData !== null && foundData !== undefined
-                                &&
-                                <div className="flex-1">
-                                    <div className="p-1 font-bold lg:text-lg">{day}</div>
-
-                                    <div className="hidden md:block lg:block xl:block 2xl:block flex-1 text-sm mt-auto text-green-700">
-                                        {foundData.breakfast ?
-                                            <div className="text-xs p-1 flex flex-row items-center justify-between">
-                                                <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('breakfast')}</span>
-                                                <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
-                                            </div>
+                                    to={
+                                        day ?
+                                            `/detail/${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
                                             :
-                                            ''
-                                        }
+                                            '/'
+                                    }
+                                    key={idx}
+                                >
+                                    {
+                                        foundData !== null && foundData !== undefined
+                                        &&
+                                        <div className="flex-1">
+                                            <div className="p-1 font-bold lg:text-lg">{day}</div>
 
-                                        {foundData.lunch ?
-                                            <div className=" text-xs p-1 flex flex-row items-center justify-between">
-                                                <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('lunch')}</span>
-                                                <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
+                                            <div className="hidden md:block lg:block xl:block 2xl:block flex-1 text-sm mt-auto text-green-700">
+                                                {foundData.breakfast ?
+                                                    <div className="text-xs p-1 flex flex-row items-center justify-between">
+                                                        <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('breakfast')}</span>
+                                                        <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
+                                                    </div>
+                                                    :
+                                                    ''
+                                                }
+
+                                                {foundData.lunch ?
+                                                    <div className=" text-xs p-1 flex flex-row items-center justify-between">
+                                                        <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('lunch')}</span>
+                                                        <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
+                                                    </div>
+
+                                                    : ''
+                                                }
+
                                             </div>
+                                        </div>
 
-                                            : ''
-                                        }
+                                    }
+                                </Link>
 
-                                    </div>
-                                </div>
+                                // <Link
+                                //     to={
+                                //         day ?
+                                //             `/detail/${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+                                //             :
+                                //             '/'
+                                //     }
+                                //     key={idx}
+                                //     className={`
+                                //         ${controlBg}
+                                //         border rounded-xl text-lg transition-all duration-200 ${day ? '' : 'bg-transparent'} ${isToday ? 'border-2 border-blue-600 font-bold text-blue-600' : 'border-gray-200 text-gray-700'}`}
+                                // >
+                                //     {
+                                //         foundData !== null && foundData !== undefined
+                                //             ?
+                                //             <div className="flex items-center space-x-3 p-2">
+                                //                 <div className="md:w-10 md:h-10 lg:w-10 lg:h-10 xl:w-10 xl:h-10 2xl:w-10 2xl:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-50">
+                                //                     <span className="text-sm font-medium text-gray-800">{day || ''}</span>
+                                //                 </div>
+                                //                 <div className="flex-1 hidden md:block lg:block xl:block 2xl:block">
+                                //                     <ul>
+                                //                         {foundData.breakfast ?
+                                //                             <li className="text-xs p-1">
 
-                            }
-                        </Link>
+                                //                                 <div className="flex items-center justify-between">
+                                //                                     <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('breakfast')}</span>
+                                //                                     <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
+                                //                                 </div>
+                                //                             </li>
+                                //                             :
+                                //                             ''
+                                //                         }
+                                //                         {foundData.lunch ?
+                                //                             <li className="text-xs p-1">
+                                //                                 <div className="flex items-center justify-between">
+                                //                                     <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('lunch')}</span>
+                                //                                     <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
+                                //                                 </div>
+                                //                             </li>
+                                //                             :
+                                //                             ''
+                                //                         }
+                                //                     </ul>
+                                //                 </div>
+                                //             </div>
+                                //             :
+                                //             <div className="p-2">
+                                //                 <span className="text-sm font-medium text-gray-800">{day || ''}</span>
+                                //             </div>
+                                //     }
+                                // </Link>
+                            );
+                        })}
+                    </div>
+            }
 
-                        // <Link
-                        //     to={
-                        //         day ?
-                        //             `/detail/${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-                        //             :
-                        //             '/'
-                        //     }
-                        //     key={idx}
-                        //     className={`
-                        //         ${controlBg}
-                        //         border rounded-xl text-lg transition-all duration-200 ${day ? '' : 'bg-transparent'} ${isToday ? 'border-2 border-blue-600 font-bold text-blue-600' : 'border-gray-200 text-gray-700'}`}
-                        // >
-                        //     {
-                        //         foundData !== null && foundData !== undefined
-                        //             ?
-                        //             <div className="flex items-center space-x-3 p-2">
-                        //                 <div className="md:w-10 md:h-10 lg:w-10 lg:h-10 xl:w-10 xl:h-10 2xl:w-10 2xl:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-50">
-                        //                     <span className="text-sm font-medium text-gray-800">{day || ''}</span>
-                        //                 </div>
-                        //                 <div className="flex-1 hidden md:block lg:block xl:block 2xl:block">
-                        //                     <ul>
-                        //                         {foundData.breakfast ?
-                        //                             <li className="text-xs p-1">
-
-                        //                                 <div className="flex items-center justify-between">
-                        //                                     <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('breakfast')}</span>
-                        //                                     <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
-                        //                                 </div>
-                        //                             </li>
-                        //                             :
-                        //                             ''
-                        //                         }
-                        //                         {foundData.lunch ?
-                        //                             <li className="text-xs p-1">
-                        //                                 <div className="flex items-center justify-between">
-                        //                                     <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('lunch')}</span>
-                        //                                     <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
-                        //                                 </div>
-                        //                             </li>
-                        //                             :
-                        //                             ''
-                        //                         }
-                        //                     </ul>
-                        //                 </div>
-                        //             </div>
-                        //             :
-                        //             <div className="p-2">
-                        //                 <span className="text-sm font-medium text-gray-800">{day || ''}</span>
-                        //             </div>
-                        //     }
-                        // </Link>
-                    );
-                })}
-            </div>
-        </div >
+        </div>
     );
 }
