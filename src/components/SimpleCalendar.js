@@ -32,26 +32,26 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
         foundData = calendarData[passedDate];
         colored = 'bg-white';
 
-        console.log('day', day)
-        console.log('today', today.getDate());
-        console.log('checking', day >= today.getDate())
+        // console.log('day', day)
+        // console.log('today', today.getDate());
+        // console.log('checking', day >= today.getDate())
 
         if (foundData !== null && foundData !== undefined) {
-            console.log('foundData', foundData)
+            // console.log('foundData', foundData)
 
             if (foundData.breakfast !== null && foundData.lunch !== null) {
-                console.log('red condition')
+                // console.log('red condition')
                 colored = 'bg-red-500';
             } else if (
                 (foundData.breakfast !== null && foundData.lunch === null)
                 ||
                 (foundData.breakfast === null && foundData.lunch !== null)
             ) {
-                console.log('yellow condition')
+                // console.log('yellow condition')
                 colored = 'bg-yellow-300';
             } else if ((new Date(passedDate) >= new Date())) {
                 if (foundData.lunch === null || foundData.breakfast === null) {
-                    console.log('green condition')
+                    // console.log('green condition')
                     colored = 'bg-green-300';
                 }
             }
@@ -87,7 +87,11 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
                     :
                     <div className="grid grid-cols-7 gap-2 mt-2 [grid-auto-rows:1fr]">
                         {cells.map((day, idx) => {
-                            const isToday = day === today.getDate();
+                            // const isToday = day === today.getDate();
+                            const isToday =
+                                `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+                                ===
+                                new Date().toISOString().split('T')[0]
 
                             const { foundData, colored } = determineCellColor(day, month + 1, year);
 
