@@ -20,43 +20,45 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
     for (let d = 1; d <= daysInMonth; d++) cells.push(d);
     while (cells.length % 7 !== 0) cells.push(null);
 
-    const findCalendarDataForDay = (day, month, year) => {
-        if (!calendarData || calendarData.length === 0) return null;
-
-        const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-
-        return calendarData[dateStr];
-    };
-
-    const determineCellColor = (day, foundData) => {
+    const determineCellColor = (day, month, year) => {
 
         let colored = 'bg-white';
+        let foundData = null;
+
+        if (!calendarData || calendarData.length === 0) return { foundData, colored };;
+
+        const passedDate = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+        foundData = calendarData[passedDate];
+        colored = 'bg-white';
+
         console.log('day', day)
         console.log('today', today.getDate());
         console.log('checking', day >= today.getDate())
 
-        if (foundData !== null) {
-            // console.log('foundData', foundData)
-            if (foundData !== undefined) {
-                if (foundData.breakfast !== null && foundData.lunch !== null) {
-                    colored = 'bg-red-500';
-                } if (
-                    (foundData.breakfast !== null && foundData.lunch === null)
-                    ||
-                    (foundData.breakfast === null && foundData.lunch !== null)
-                ) {
-                    colored = 'bg-yellow-300';
-                } else if ((day >= today.getDate())) {
-                    if (foundData.lunch === null || foundData.breakfast === null) {
-                        colored = 'bg-green-300';
-                    }
+        if (foundData !== null && foundData !== undefined) {
+            console.log('foundData', foundData)
 
+            if (foundData.breakfast !== null && foundData.lunch !== null) {
+                console.log('red condition')
+                colored = 'bg-red-500';
+            } else if (
+                (foundData.breakfast !== null && foundData.lunch === null)
+                ||
+                (foundData.breakfast === null && foundData.lunch !== null)
+            ) {
+                console.log('yellow condition')
+                colored = 'bg-yellow-300';
+            } else if ((new Date(passedDate) >= new Date())) {
+                if (foundData.lunch === null || foundData.breakfast === null) {
+                    console.log('green condition')
+                    colored = 'bg-green-300';
                 }
             }
-        }
-        console.log('color ', colored)
 
-        return colored;
+        }
+
+        return { foundData, colored };
     }
 
     return (
@@ -86,14 +88,13 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
                     <div className="grid grid-cols-7 gap-2 mt-2 [grid-auto-rows:1fr]">
                         {cells.map((day, idx) => {
                             const isToday = day === today.getDate();
-                            const foundData = findCalendarDataForDay(day, month + 1, year);
-                            const controlBg = determineCellColor(day, foundData);
-                            // console.log('foundData for day', foundData);
-                            // determineCellColor(day);
+
+                            const { foundData, colored } = determineCellColor(day, month + 1, year);
+
                             return (
                                 <Link
                                     className={`
-                                ${controlBg}
+                                ${colored}
                                 flex calendar-grid border rounded-xl transition-all duration-200 ${day ? '' : 'bg-transparent'} ${isToday ? 'border-2 border-blue-600 font-bold text-blue-600' : 'border-gray-200 text-gray-700'}`}
                                     to={
                                         day ?
@@ -107,12 +108,15 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
                                         foundData !== null && foundData !== undefined
                                         &&
                                         <div className="flex-1">
-                                            <div className="p-1 font-bold lg:text-lg">{day}</div>
+                                            <div className="p-1 font-bold lg:text-lg">
+                                                {day}
+                                                {isToday && <span class="text-sm"> {t('today')} </span>}
+                                            </div>
 
                                             <div className="hidden md:block lg:block xl:block 2xl:block flex-1 text-sm mt-auto text-green-700">
                                                 {foundData.breakfast ?
                                                     <div className="text-xs p-1 flex flex-row items-center justify-between">
-                                                        <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('breakfast')}</span>
+                                                        <span className={`${colored === 'bg-red-500' ? 'text-white' : ''}`}>{t('breakfast')}</span>
                                                         <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
                                                     </div>
                                                     :
@@ -121,7 +125,7 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
 
                                                 {foundData.lunch ?
                                                     <div className=" text-xs p-1 flex flex-row items-center justify-between">
-                                                        <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('lunch')}</span>
+                                                        <span className={`${colored === 'bg-red-500' ? 'text-white' : ''}`}>{t('lunch')}</span>
                                                         <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
                                                     </div>
 
@@ -133,58 +137,6 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
 
                                     }
                                 </Link>
-
-                                // <Link
-                                //     to={
-                                //         day ?
-                                //             `/detail/${year}-${String(monthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-                                //             :
-                                //             '/'
-                                //     }
-                                //     key={idx}
-                                //     className={`
-                                //         ${controlBg}
-                                //         border rounded-xl text-lg transition-all duration-200 ${day ? '' : 'bg-transparent'} ${isToday ? 'border-2 border-blue-600 font-bold text-blue-600' : 'border-gray-200 text-gray-700'}`}
-                                // >
-                                //     {
-                                //         foundData !== null && foundData !== undefined
-                                //             ?
-                                //             <div className="flex items-center space-x-3 p-2">
-                                //                 <div className="md:w-10 md:h-10 lg:w-10 lg:h-10 xl:w-10 xl:h-10 2xl:w-10 2xl:h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-gray-50">
-                                //                     <span className="text-sm font-medium text-gray-800">{day || ''}</span>
-                                //                 </div>
-                                //                 <div className="flex-1 hidden md:block lg:block xl:block 2xl:block">
-                                //                     <ul>
-                                //                         {foundData.breakfast ?
-                                //                             <li className="text-xs p-1">
-
-                                //                                 <div className="flex items-center justify-between">
-                                //                                     <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('breakfast')}</span>
-                                //                                     <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
-                                //                                 </div>
-                                //                             </li>
-                                //                             :
-                                //                             ''
-                                //                         }
-                                //                         {foundData.lunch ?
-                                //                             <li className="text-xs p-1">
-                                //                                 <div className="flex items-center justify-between">
-                                //                                     <span className={`${controlBg === 'bg-red-500' ? 'text-white' : ''}`}>{t('lunch')}</span>
-                                //                                     <CheckCircleIcon className="inline-block h-5 w-5 text-green-500" />
-                                //                                 </div>
-                                //                             </li>
-                                //                             :
-                                //                             ''
-                                //                         }
-                                //                     </ul>
-                                //                 </div>
-                                //             </div>
-                                //             :
-                                //             <div className="p-2">
-                                //                 <span className="text-sm font-medium text-gray-800">{day || ''}</span>
-                                //             </div>
-                                //     }
-                                // </Link>
                             );
                         })}
                     </div>

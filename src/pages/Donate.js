@@ -137,12 +137,13 @@ const Donate = () => {
         />
       </div>
       <div className="mx-auto max-w-2xl text-center">
-        <h3 className="text-balance text-3xl font-semibold tracking-tight text-gray-900 sm:text-2xl">
-          <span className="text-blue-700">{convertDateLang(date, i18n.language)} </span> {t('detail_heading_for')}
+        <h3 className="text-balance sm:text-2xl lg:text-3xl font-semibold tracking-tight text-gray-900 ">
+          <span className="text-blue-700">{convertDateLang(date, i18n.language)} ({t(eventFor)})</span>
         </h3>
-        <h4 className="pt-4 text-balance text-3xl font-semibold tracking-tight text-gray-900 sm:text-2xl">
-          <span className="text-blue-700">{t(eventFor)}</span> {t('donate_heading')}
+        <h4 className="pt-4 lg:text-3xl sm:text-2xl  text-gray-700 ">
+          <span className="">{t('donate_heading')}</span> 
         </h4>
+        
       </div>
       <form className="mx-auto mt-8 max-w-xl sm:mt-8">
         <Snackbar

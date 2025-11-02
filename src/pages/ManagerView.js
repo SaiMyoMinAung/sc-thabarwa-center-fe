@@ -17,7 +17,7 @@ export default function ManagerView() {
   useEffect(() => {
     const controller = new AbortController();
 
-    fetchEvents({ params: { date: `${currentYear}-${currentMonth + 1}` }, signal: controller.signal })
+    fetchEvents({ params: { year: currentYear, month: `${String(currentMonth + 1).padStart(2, '0')}` }, signal: controller.signal })
       .then(data => {
         setEventData(Array.isArray(data.data) ? data.data : []);
       })
@@ -87,7 +87,7 @@ export default function ManagerView() {
       </Snackbar>
 
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Manager - Events ({currentYear}-{String(currentMonth + 1).padStart(2, '0')})</h1>
+        <h1 className="text-xl font-semibold">Donation Events ({currentYear}-{String(currentMonth + 1).padStart(2, '0')})</h1>
         <div className="space-x-2">
           <button onClick={changeToPrevMonth} className="px-3 py-1 bg-gray-200 rounded">Prev</button>
           <button onClick={changeToNextMonth} className="px-3 py-1 bg-gray-200 rounded">Next</button>

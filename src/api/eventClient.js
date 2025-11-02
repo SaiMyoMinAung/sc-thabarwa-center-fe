@@ -14,7 +14,7 @@ export async function fetchCalenderData({ params = {}, signal } = {}) {
  * signal: optional AbortController.signal
  */
 export async function fetchEvents({ params = {}, signal } = {}) {
-    return baseClient.get('/get-donation-event', { params, signal });
+    return baseClient.get(`/get-donation-event`, { params, signal });
 }
 
 /**

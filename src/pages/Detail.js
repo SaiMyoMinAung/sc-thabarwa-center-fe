@@ -33,37 +33,76 @@ export default function Detail(props) {
     if (data) {
       return (
         <div className="border rounded-lg bg-white p-4 shadow-sm flex flex-col">
-          <h1 className="text-center text-green-400 font-bold text-3xl my-4">{t(data.event_for)} {t('detail_donar')}</h1>
-          <h1 className="text-1xl my-2">{t('donate_title')}</h1>
-          <h1 className="text-2xl text-blue-500 my-2">{data.title}</h1>
-          <h1 className="text-1xl my-2">{t('donate_description')}</h1>
-          <h1 className="text-2xl text-blue-500 my-2">{data.description}</h1>
-          <h1 className="text-1xl my-2">{t('phone')}</h1>
-          <h1 className="text-2xl text-blue-500 my-2">{data.phone}</h1>
-          <h1 className="text-1xl my-2">{t('donate_address')}</h1>
-          <h1 className="text-2xl text-blue-500 my-2">{data.address}</h1>
+          <h1 className="text-center text-green-400 font-bold text-2xl my-4">{t(data.event_for)} {t('detail_donar')}</h1>
+
+          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+              {t('donate_title')}
+            </span>
+            <div class="mt-2  leading-relaxed">
+              <p>{data.title}</p>
+            </div>
+          </div>
+
+          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+              {t('donate_description')}
+            </span>
+            <div class="mt-2  leading-relaxed">
+              <p>{data.description}</p>
+            </div>
+          </div>
+
+          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+              {t('donate_address')}
+            </span>
+            <div class="mt-2  leading-relaxed">
+              <p>{data.address}</p>
+            </div>
+          </div>
+
+          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+              {t('donate_phone')}
+            </span>
+            <div class="mt-2  leading-relaxed">
+              <p>{data.phone}</p>
+            </div>
+          </div>
+
         </div>
       );
     }
 
     // not donated -> show donate button
     return (
-      <div className="border rounded-lg bg-white p-4 shadow-sm flex flex-col items-center">
-        <div className="font-bold text-center text-3xl text-red-400 mb-10">{t(label)} {t('detail_no_donar')}</div>
-        <Link
-          to={`/donate/${label}/${params.date}`}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 text-sm"
-        >
-          {t('detail_donation_button')}
-        </Link>
-      </div>
+      <>
+        {
+          (new Date(params.date) >= new Date()) ?
+            <div className="border rounded-lg bg-white p-4 shadow-sm flex flex-col justify-center items-center">
+              <div className="font-bold text-center text-xl lg:text-3xl text-red-400 mb-10">{t(label)} {t('detail_no_donar')}</div>
+              <Link
+                to={`/donate/${label}/${params.date}`}
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 text-sm"
+              >
+                {t('detail_donation_button')}
+              </Link>
+            </div>
+            :
+            <div className="border rounded-lg bg-white p-4 shadow-sm flex flex-col justify-center items-center">
+              <div className="font-bold text-center text-xl lg:text-3xl text-red-400 mb-10">{t(label)} {t('detail_no_donar')}</div>
+            </div>
+        }
+      </>
+
     );
   };
 
   // note: your API returns breakfast and lunch. user requested "dinner and breakfast side by side"
   // we place breakfast and lunch side-by-side; label right column "Dinner" if you prefer change label.
   return (
-    <div className="isolate bg-white px-6 py-10 sm:py-6 lg:px-8 w-full min-h-screen flex flex-col bg-gray-50">
+    <div className="isolate bg-white px-6 py-10 sm:py-6 lg:px-8 flex flex-col bg-gray-50">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -78,7 +117,7 @@ export default function Detail(props) {
       </div>
       <BackButton />
       <header className="mb-6">
-        <h1 className="text-center text-2xl font-bold">{convertDateLang(params.date, i18n.language)}</h1>
+        <h1 className="text-center text-xl lg:text-2xl font-bold">{convertDateLang(params.date, i18n.language)}</h1>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">

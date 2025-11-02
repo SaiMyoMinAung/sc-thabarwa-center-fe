@@ -22,14 +22,14 @@ const resources = {
             "lunch": "Lunch",
             "both_breakfast_lunch": "Both Breakfast And Lunch",
             // donate page
-            "donate_heading": "Donate Breakfast Or Lunch",
-            "donate_description": "Please fill out the form below to make a donation for meals.",
+            "donate_heading": "Please fill out the form below to make a donation for meals.",
+            "donate_description": "Description In Detail",
             "donate_selected_date": "Date Selected",
-            "donate_phone": "Phone Number",
+            "donate_phone": "Donor's Phone Number To Be Contacted",
             "donate_date": "Date",
             "donate_event_for": "Breakfast Or Lunch",
             "donate_title": "Donation Title",
-            "donate_address": "Donation Address",
+            "donate_address": "Donor's Address",
             "donate_submit": "Submit Now",
             // detail page
             'detail_heading_for': "",
@@ -51,6 +51,12 @@ const resources = {
             'friday': 'Fri',
             'saturday': 'Sat',
             'sunday': 'Sun',
+            // 
+            'Manager View': 'Manager View',
+            'EN' : 'EN',
+            'MY': 'MY',
+            // 
+            'today': 'today',
         }
     },
     my: {
@@ -73,13 +79,13 @@ const resources = {
             "lunch": "နေ့ဆွမ်း",
             "both_breakfast_lunch": "တနေ့တာ",
             // donate page
-            "donate_heading": " လှူဒါန်းရန်",
+            "donate_heading": " လှူဒါန်းရန်အတွက် ကျေးဇူးပြု၍ အောက်ပါ ဖောင်ကိုဖြည့်ပါ",
             "donate_event_for": "လှူဒါန်းမည့် ဆွမ်း",
             "donate_date": "ရက်စွဲ",
             "donate_selected_date": " ကို ရွေးထားပါသည်။",
-            "donate_phone": "ဖုန်းနံပါတ် ဖြည့်ပါ",
+            "donate_phone": "အလှူရှင်သို့ ဆက်သွယ်နိုင်ပါရန် ဖုန်းနံပါတ်",
             "donate_submit": "လှူဒါန်းမည်",
-            "donate_address": "လှူဒါန်းမည့် လိပ်စာ",
+            "donate_address": "အလှူရှင်လိပ်စာ",
             "donate_title": "လှူဒါန်းမည့် ခေါင်းစဉ်",
             "donate_description": "လှူဒါန်းမည့် အခြား ဖော်ပြချက်",
             // detail page
@@ -97,6 +103,11 @@ const resources = {
             'friday': 'သောကြာ',
             'saturday': 'စနေ',
             'sunday': 'တနင်္ဂနွေ',
+            // 
+            'Manager View': 'မန်နေဂျာ',
+            'EN': 'အင်္ဂလိပ်',
+            'MY': 'မြန်မာ',
+            'today': 'ယနေ့',
         }
     }
 };

@@ -70,7 +70,7 @@ function DrawerAppBar(props) {
                 {navItems.map((item) => (
                     <ListItem key={item.name} disablePadding >
                         <ListItemButton component={Link} to={item.url} sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item.name} />
+                            <ListItemText primary={t(item.name)} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -79,7 +79,7 @@ function DrawerAppBar(props) {
                         <>
                             <ListItem key='Manager View' disablePadding >
                                 <ListItemButton component={Link} to='/manager-view' sx={{ textAlign: 'center' }}>
-                                    <ListItemText primary='Manager View' />
+                                    <ListItemText primary={t('Manager View')} />
                                 </ListItemButton>
                             </ListItem>
 
@@ -88,8 +88,6 @@ function DrawerAppBar(props) {
                                     <ListItemText primary='Log Out' />
                                 </ListItemButton>
                             </ListItem>
-
-
                         </>
                         :
                         <ListItem key='Login View' disablePadding >
@@ -140,7 +138,7 @@ function DrawerAppBar(props) {
                                 <>
                                     <Link key='Manager View' to='/manager-view'>
                                         <Button key='Manager View' sx={{ color: '#fff' }}>
-                                            Manager View
+                                            {t('Manager View')}
                                         </Button>
                                     </Link>
                                     <Button onClick={() => handleLogOut()} key='Log Out' sx={{ color: '#fff' }}>
@@ -161,8 +159,8 @@ function DrawerAppBar(props) {
                             size="small"
                             sx={{ ml: 1, color: '#fff', '.MuiSelect-icon': { color: '#fff' } }}
                         >
-                            <MenuItem value="en">EN</MenuItem>
-                            <MenuItem value="my">MY</MenuItem>
+                            <MenuItem value="en">{t('EN')}</MenuItem>
+                            <MenuItem value="my">{t('MY')}</MenuItem>
                         </Select>
                     </Box>
                 </Toolbar>
@@ -190,8 +188,8 @@ function DrawerAppBar(props) {
                             fullWidth
                             size="small"
                         >
-                            <MenuItem value="en">EN</MenuItem>
-                            <MenuItem value="my">MY</MenuItem>
+                            <MenuItem value="en">{t('EN')}</MenuItem>
+                            <MenuItem value="my">{t('MY')}</MenuItem>
                         </Select>
                     </Box>
                 </Drawer>
