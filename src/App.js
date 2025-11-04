@@ -11,6 +11,7 @@ import Detail from './pages/Detail.js';
 import ManagerLogin from './pages/ManagerLogin.js';
 import { GlobalProvider } from './context/GlobalState.js';
 import ManagerView from './pages/ManagerView.js';
+import AnnouncementView from './pages/AnnouncementView.js';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/manager-login" element={<ManagerLogin />} />
             <Route path="/manager-view" element={<ManagerView />} />
+            <Route path="/announcement-view" element={<AnnouncementView />} />
             <Route path="/detail/:date" element={<Detail />} />
             <Route path="/donate/:eventFor/:date" element={<Donate />} />
             <Route path="/about" element={<About />} />

@@ -57,6 +57,7 @@ const resources = {
             'MY': 'MY',
             // 
             'today': 'today',
+            'announcement': 'Announcement'
         }
     },
     my: {
@@ -108,6 +109,9 @@ const resources = {
             'EN': 'အင်္ဂလိပ်',
             'MY': 'မြန်မာ',
             'today': 'ယနေ့',
+            // 
+            'announcement': 'ကြေငြာချက်',
+            'no_announcement': 'ကြေငြာချက် မရှိသေးပါ',
         }
     }
 };

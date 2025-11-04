@@ -33,8 +33,9 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
         colored = 'bg-white';
 
         // console.log('day', day)
-        // console.log('today', today.getDate());
-        // console.log('checking', day >= today.getDate())
+        // console.log('passedDate', passedDate)
+        // console.log('today', new Date());
+        // console.log('new Date(passedDate) >= new Date()', new Date(passedDate) >= new Date())
 
         if (foundData !== null && foundData !== undefined) {
             // console.log('foundData', foundData)
@@ -49,9 +50,9 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
             ) {
                 // console.log('yellow condition')
                 colored = 'bg-yellow-300';
-            } else if ((new Date(passedDate) >= new Date())) {
+            } else if (new Date(passedDate + ' 23:59:59') >= new Date()) {
                 if (foundData.lunch === null || foundData.breakfast === null) {
-                    // console.log('green condition')
+                    console.log('green condition')
                     colored = 'bg-green-300';
                 }
             }
@@ -114,7 +115,7 @@ export default function SimpleCalendar({ loading, year, month, calendarData, nex
                                         <div className="flex-1">
                                             <div className="p-1 font-bold lg:text-lg">
                                                 {day}
-                                                {isToday && <span class="text-sm"> {t('today')} </span>}
+                                                {isToday && <span className="text-sm"> {t('today')} </span>}
                                             </div>
 
                                             <div className="hidden md:block lg:block xl:block 2xl:block flex-1 text-sm mt-auto text-green-700">

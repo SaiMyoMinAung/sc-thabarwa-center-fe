@@ -41,6 +41,7 @@ function DrawerAppBar(props) {
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
     const { access_token, delToken } = React.useContext(GlobalContext)
+    const [managerView, setManagerView] = React.useState('Manager View');
 
     const handleLangChange = (e) => {
         const lng = e.target.value;
@@ -50,7 +51,18 @@ function DrawerAppBar(props) {
 
     const handleLogOut = () => {
         delToken()
+        setManagerView('Manager View')
         navigate('/')
+    }
+
+    const onClickManagerView = () => {
+        setManagerView('Manager View');
+        navigate('/manager-view');
+    }
+
+    const onClickAnnouncement = () => {
+        setManagerView('Announcement View');
+        navigate('/announcement-view');
     }
 
     const { window } = props;
@@ -135,16 +147,21 @@ function DrawerAppBar(props) {
 
                         {
                             access_token ?
-                                <>
-                                    <Link key='Manager View' to='/manager-view'>
-                                        <Button key='Manager View' sx={{ color: '#fff' }}>
-                                            {t('Manager View')}
-                                        </Button>
-                                    </Link>
-                                    <Button onClick={() => handleLogOut()} key='Log Out' sx={{ color: '#fff' }}>
+                                <Select
+                                    value={managerView || 'Manager View'}
+                                    size="small"
+                                    sx={{ ml: 1, color: '#fff', '.MuiSelect-icon': { color: '#fff' } }}
+                                >
+                                    <MenuItem value="Manager View" onClick={() => onClickManagerView()}>
+                                        {t('Manager View')}
+                                    </MenuItem>
+                                    <MenuItem value="Announcement View" onClick={() => onClickAnnouncement()}>
+                                        {t('announcement')}
+                                    </MenuItem>
+                                    <MenuItem value="Log Out" onClick={() => handleLogOut()}>
                                         Log Out
-                                    </Button>
-                                </>
+                                    </MenuItem>
+                                </Select>
                                 :
                                 <Link key='Login View' to='/manager-login'>
                                     <Button key='Login View' sx={{ color: '#fff' }}>

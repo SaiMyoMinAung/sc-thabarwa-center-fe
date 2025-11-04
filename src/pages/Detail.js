@@ -3,11 +3,6 @@ import { useParams, Link } from 'react-router-dom'
 import { fetchCalenderDetailData } from '../api/eventClient';
 import { useTranslation } from 'react-i18next';
 import convertDateLang from '../utils/convertDateLang';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';
 import BackButton from '../components/BackButton';
 
 export default function Detail(props) {
@@ -35,38 +30,38 @@ export default function Detail(props) {
         <div className="border rounded-lg bg-white p-4 shadow-sm flex flex-col">
           <h1 className="text-center text-green-400 font-bold text-2xl my-4">{t(data.event_for)} {t('detail_donar')}</h1>
 
-          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
-            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+          <div className="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span className="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
               {t('donate_title')}
             </span>
-            <div class="mt-2  leading-relaxed">
+            <div className="mt-2  leading-relaxed">
               <p>{data.title}</p>
             </div>
           </div>
 
-          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
-            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+          <div className="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span className="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
               {t('donate_description')}
             </span>
-            <div class="mt-2  leading-relaxed">
+            <div className="mt-2  leading-relaxed">
               <p>{data.description}</p>
             </div>
           </div>
 
-          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
-            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+          <div className="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span className="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
               {t('donate_address')}
             </span>
-            <div class="mt-2  leading-relaxed">
+            <div className="mt-2  leading-relaxed">
               <p>{data.address}</p>
             </div>
           </div>
 
-          <div class="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
-            <span class="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
+          <div className="relative border-2 border-black-300 rounded-xl px-6 py-4 my-3">
+            <span className="absolute -top-3 left-5 bg-white px-2 text-blue-500 font-semibold text-sm">
               {t('donate_phone')}
             </span>
-            <div class="mt-2  leading-relaxed">
+            <div className="mt-2  leading-relaxed">
               <p>{data.phone}</p>
             </div>
           </div>
@@ -79,7 +74,7 @@ export default function Detail(props) {
     return (
       <>
         {
-          (new Date(params.date) >= new Date()) ?
+          (new Date(params.date + ' 23:59:59') >= new Date()) ?
             <div className="border rounded-lg bg-white p-4 shadow-sm flex flex-col justify-center items-center">
               <div className="font-bold text-center text-xl lg:text-3xl text-red-400 mb-10">{t(label)} {t('detail_no_donar')}</div>
               <Link

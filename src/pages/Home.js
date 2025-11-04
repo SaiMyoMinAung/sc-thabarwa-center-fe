@@ -2,12 +2,15 @@ import SimpleCalendar from '../components/SimpleCalendar';
 import { fetchCalenderData } from '../api/eventClient.js';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
-import CircularProgress from '@mui/material/CircularProgress';
+import { getTodayAnnouncementData } from '../api/announcementClient.js';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
   const today = new Date();
+  const { t } = useTranslation();
 
   const [calendarData, setCalendarData] = useState([]);
+  const [announcementData, setAnnouncementData] = useState('');
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
 
@@ -22,6 +25,15 @@ const Home = () => {
     fetchCalenderData({ params: { 'date': `${currentYear}-${currentMonth + 1}` }, signal: controller.signal })
       .then(data => {
         setCalendarData(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        if (err.name !== 'AbortError') console.error(err);
+      });
+
+    getTodayAnnouncementData()
+      .then(data => {
+        setAnnouncementData(data)
         setLoading(false)
       })
       .catch(err => {
@@ -74,22 +86,13 @@ const Home = () => {
           <div id="announcement-section" className="bg-white p-6 rounded-2xl shadow-lg">
             <h3 className="text-xl font-bold border-b pb-2 mb-4 text-teal-700">ရိပ်သာမှ အသိပေးကြေညာချက်</h3>
             <div id="announcement-content" className="text-gray-700 space-y-2">
-              <p>Loading...</p>
-            </div>
-          </div>
+              {
+                announcementData ?
+                  <p>{announcementData.announcement}</p>
+                  :
+                  <p>{t('no_announcement')}</p>
+              }
 
-          <div id="admin-panel" className="hidden bg-white p-6 rounded-2xl shadow-lg">
-            <h3 className="text-xl font-bold border-b pb-2 mb-4 text-indigo-700">အလှူလက်ခံရန် စာရင်း</h3>
-            <div id="pending-requests" className="space-y-4">
-              <p className="text-gray-500">လက်ခံရန် အလှူစာရင်းမရှိပါ။</p>
-            </div>
-            <div className="mt-6">
-              <h3 className="text-xl font-bold border-b pb-2 mb-4 text-indigo-700">ကြေညာချက်တင်ရန်</h3>
-              <textarea id="announcement-input" className="w-full p-2 border rounded-lg" rows="4" placeholder="ကြေညာချက် စာသား ရိုက်ထည့်ပါ..."></textarea>
-              <div className="flex gap-2 mt-2">
-                <button id="post-announcement" className="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">Post</button>
-                <button id="gemini-suggestion-btn" className="w-full flex items-center justify-center gap-2 bg-rose-500 hover:bg-rose-600 text-white font-bold py-2 px-4 rounded-lg transition-colors">✨ အကြံတောင်းရန်</button>
-              </div>
             </div>
           </div>
 
