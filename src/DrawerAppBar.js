@@ -27,14 +27,14 @@ const navItems = [
         name: 'home',
         url: '/'
     },
-    {
-        name: 'about',
-        url: '/about'
-    },
-    {
-        name: 'contact',
-        url: '/contact'
-    }
+    // {
+    //     name: 'about',
+    //     url: '/about'
+    // },
+    // {
+    //     name: 'contact',
+    //     url: '/contact'
+    // }
 ];
 
 function DrawerAppBar(props) {
