@@ -116,14 +116,14 @@ const resources = {
     }
 };
 
-const savedLng = localStorage.getItem('i18nextLng') || 'en';
+const savedLng = localStorage.getItem('i18nextLng') || 'my';
 
 i18n
     .use(initReactI18next)
     .init({
         resources,
         lng: savedLng,
-        fallbackLng: 'en',
+        fallbackLng: 'my',
         interpolation: { escapeValue: false },
     });
 
